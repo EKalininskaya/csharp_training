@@ -10,16 +10,12 @@ using OpenQA.Selenium.Support.UI;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class ContactCteationTests : TestBase
+    public class ContactRemovalTests : TestBase
     {
-
-
         [Test]
-        public void ContactCreationTest()
+        public void ContactRemovalTest()
         {
-            ContactData contact = new ContactData("Sergey");
-            contact.LastName = "Sergeyev";
-            app.Contact.Create(contact);
+            app.Contact.Remove(1);
         }
     }
 }

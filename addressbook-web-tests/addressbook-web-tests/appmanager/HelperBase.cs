@@ -20,5 +20,18 @@ namespace WebAddressbookTests
             this.manager = manager;
             this.driver = manager.Driver;
         }
+
+        protected bool IsElementPresent(By by)
+        {
+            try
+            {
+                driver.FindElement(by);
+                return true;
+            }
+            catch (NoSuchElementException)
+            {
+                return false;
+            }
+        }
     }
 }

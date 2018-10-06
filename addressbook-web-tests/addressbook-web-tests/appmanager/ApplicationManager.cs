@@ -18,16 +18,20 @@ namespace WebAddressbookTests
         protected LoginHelper loginHelper;
         protected NavigationHelper navigator;
         protected GroupHelper groupHelper;
+        protected ContactHelper contactHelper;
+        protected AlertHelper alertHelper;
 
 
         public ApplicationManager()
         {
             driver = new FirefoxDriver();
             baseURL = "https://www.katalon.com/";
-          
+
             loginHelper = new LoginHelper(this);
             navigator = new NavigationHelper(this);
             groupHelper = new GroupHelper(this);
+            contactHelper = new ContactHelper(this);
+            alertHelper = new AlertHelper(this);
         }
 
         public IWebDriver Driver
@@ -71,7 +75,19 @@ namespace WebAddressbookTests
                 return groupHelper;
             }
         }
+        public ContactHelper Contact
+        {  get
+            {
+                return contactHelper;
+            }
+        }
+        public AlertHelper Alert
+        {
+            get
+            {
+                return alertHelper;
+            }
+        }
 
-      
     }
 }
