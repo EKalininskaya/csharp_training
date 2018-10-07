@@ -33,5 +33,19 @@ namespace WebAddressbookTests
                 return false;
             }
         }
+
+        protected IWebElement WaitUntilElementExists(By elementLocator, int timeout = 10)
+        {
+            try
+            {
+                var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeout));
+                return wait.Until(ExpectedConditions.ElementExists(elementLocator));
+            }
+            catch (NoSuchElementException)
+            {
+                Console.WriteLine("Element with locator: '" + elementLocator + "' was not found in current context page.");
+                throw;
+            }
+        }
     }
 }
