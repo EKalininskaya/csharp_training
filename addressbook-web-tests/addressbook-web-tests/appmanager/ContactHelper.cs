@@ -32,15 +32,12 @@ namespace WebAddressbookTests
 
         public ContactHelper Remove(int p)
         {
-            SelectGroup(1);
+            SelectContact(1);
             manager.Alert.AcceptAlert();
 
             driver.FindElement(By.CssSelector("input[value=\"Delete\"]")).Click();
             Assert.IsTrue(Regex.IsMatch(manager.Alert.CloseAlertAndGetItsText(), "^Delete 1 addresses[\\s\\S]$"));
 
-            WaitUntilElementExists(By.LinkText("Logout"));
-
-            Logout();
             return this;
         }
 
@@ -73,7 +70,7 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("nickname")).Click();
             driver.FindElement(By.Name("nickname")).Clear();
             driver.FindElement(By.Name("nickname")).SendKeys(contactData.NickName);
-            driver.FindElement(By.Name("middlename")).Click();
+            /*driver.FindElement(By.Name("middlename")).Click();
             driver.FindElement(By.Name("middlename")).Clear();
             driver.FindElement(By.Name("middlename")).SendKeys(contactData.MiddleName);
             driver.FindElement(By.Name("company")).Click();
@@ -105,7 +102,7 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("email3")).SendKeys(contactData.Email3);
             driver.FindElement(By.Name("homepage")).Click();
             driver.FindElement(By.Name("homepage")).Clear();
-            driver.FindElement(By.Name("homepage")).SendKeys(contactData.HomePage);
+            driver.FindElement(By.Name("homepage")).SendKeys(contactData.HomePage);*/
 
         }
         public void ClickEnter()
@@ -131,7 +128,7 @@ namespace WebAddressbookTests
             driver.FindElement(By.LinkText("Logout")).Click();
         }
       
-        public void SelectGroup(int index)
+        public void SelectContact(int index)
         {
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
         }

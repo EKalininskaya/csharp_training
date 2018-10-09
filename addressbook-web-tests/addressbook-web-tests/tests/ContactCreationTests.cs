@@ -18,8 +18,8 @@ namespace WebAddressbookTests
         public void ContactCreationTest()
         {
             ContactData contactData = new ContactData();
-            contactData.FirstName = "Sergey";
-            contactData.LastName = "Sergeyev";
+            contactData.FirstName = "Ivan";
+            contactData.LastName = "Ivanov";
             app.Contact.Create(contactData);
         }
     }
