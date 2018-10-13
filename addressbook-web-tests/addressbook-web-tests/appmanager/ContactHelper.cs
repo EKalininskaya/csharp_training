@@ -58,7 +58,12 @@ namespace WebAddressbookTests
 
         public void FillContactForm(ContactData contactData)
         {
-            driver.FindElement(By.Name("firstname")).Click();
+            Type(By.Name("firstname"), contactData.FirstName);
+            Type(By.Name("lastname"), contactData.LastName);
+            Type(By.Name("title"), contactData.Title);
+            Type(By.Name("nickname"), contactData.NickName);
+
+            /*driver.FindElement(By.Name("firstname")).Click();
             driver.FindElement(By.Name("firstname")).Clear();
             driver.FindElement(By.Name("firstname")).SendKeys(contactData.FirstName);
             driver.FindElement(By.Name("lastname")).Click();
@@ -69,7 +74,8 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("title")).SendKeys(contactData.Title);
             driver.FindElement(By.Name("nickname")).Click();
             driver.FindElement(By.Name("nickname")).Clear();
-            driver.FindElement(By.Name("nickname")).SendKeys(contactData.NickName);
+            driver.FindElement(By.Name("nickname")).SendKeys(contactData.NickName);*/
+
             /*driver.FindElement(By.Name("middlename")).Click();
             driver.FindElement(By.Name("middlename")).Clear();
             driver.FindElement(By.Name("middlename")).SendKeys(contactData.MiddleName);
