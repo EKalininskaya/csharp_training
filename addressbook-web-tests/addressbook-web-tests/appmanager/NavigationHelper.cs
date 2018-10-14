@@ -19,11 +19,20 @@ namespace WebAddressbookTests
 
         public void GoToHomePage()
         {
+            if (driver.Url == "http://localhost/addressbook/group.php")
+            {
+                return;
+            }
             driver.Navigate().GoToUrl("http://localhost/addressbook/");
         }
 
         public void GoToGroupPage()
         {
+            if (driver.Url == "http://localhost/addressbook/group.php"
+                && IsElementPresent(By.Name("new")))
+            {
+                return;
+            }        
             driver.FindElement(By.LinkText("groups")).Click();
         }
     }

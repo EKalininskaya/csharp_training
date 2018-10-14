@@ -13,13 +13,11 @@ namespace WebAddressbookTests
     public class TestBase
     {
         protected ApplicationManager app;
-       
 
         [SetUp]
-        public void SetupTest()
+        public void SetupApplicationMAnager()
         {
             app = ApplicationManager.GetInstance();
-
         }
 
     }

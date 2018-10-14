@@ -31,7 +31,7 @@ namespace WebAddressbookTests
             }
         }
 
-        protected bool IsElementPresent(By by)
+        public bool IsElementPresent(By by)
         {
             try
             {
