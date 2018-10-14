@@ -42,7 +42,7 @@ namespace WebAddressbookTests
         }
         public bool IsLoggedIn()
         {
-            return IsElementPresent(By.Name("Logout"));
+            return IsElementPresent(By.Name("logout"));
         }
         public bool IsLoggedIn(AccountData account)
         {
@@ -50,6 +50,13 @@ namespace WebAddressbookTests
                 && driver.FindElement(By.Name("logout")).FindElement(By.TagName("b")).Text
                 == "(" + account.Username + ")";
         }
+        /*public bool IsLoggedIn(AccountData account)
+        {
+            var isLoggedIn = IsLoggedIn();
+            var logout = driver.FindElement(By.Name("logout"));
+            var tagName = logout.FindElement(By.TagName("b"));
 
+            return IsLoggedIn() && tagName.Text == "(" + account.Username + ")";
+        }*/
     }
 }

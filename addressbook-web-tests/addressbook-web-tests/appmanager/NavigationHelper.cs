@@ -19,7 +19,7 @@ namespace WebAddressbookTests
 
         public void GoToHomePage()
         {
-            if (driver.Url == "http://localhost/addressbook/group.php")
+            if (driver.Url == "http://localhost/addressbook/")
             {
                 return;
             }

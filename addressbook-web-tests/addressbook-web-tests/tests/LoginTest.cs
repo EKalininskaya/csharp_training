@@ -12,7 +12,6 @@ namespace WebAddressbookTests
     public class LoginTest : TestBase
     {
         [Test]
-
         public void LoginWithValidCredentials()
         {
             //prepare
@@ -27,7 +26,6 @@ namespace WebAddressbookTests
         }
 
         [Test]
-
         public void LoginWithInvalidCredentials()
         {
             //prepare
