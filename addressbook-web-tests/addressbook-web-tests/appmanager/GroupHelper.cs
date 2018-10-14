@@ -15,7 +15,7 @@ namespace WebAddressbookTests
 
         public GroupHelper(ApplicationManager manager)
             : base(manager)
-        {         
+        {
         }
 
         public GroupHelper Create(GroupData group)
@@ -24,13 +24,14 @@ namespace WebAddressbookTests
             InitGroupCreation();
             FillGroupForm(group);
             SubmitGroupCreation();
-            ReturnToGroupPage(); 
+            ReturnToGroupPage();
             return this;
         }
 
         public GroupHelper Modify(int p, GroupData newData)
         {
             manager.Navigator.GoToGroupPage();
+            CheckAndCreate(p);
             SelectGroup(p);
             InitGroupModification();
             FillGroupForm(newData);
@@ -38,10 +39,11 @@ namespace WebAddressbookTests
             ReturnToGroupPage();
             return this;
         }
-                
+
         public GroupHelper Remove(int p)
         {
             manager.Navigator.GoToGroupPage();
+            CheckAndCreate(p);
             SelectGroup(p);
             RemoveGroup();
             ReturnToGroupPage();
@@ -60,7 +62,7 @@ namespace WebAddressbookTests
             Type(By.Name("group_name"), group.Name);
             Type(By.Name("group_header"), group.Header);
             Type(By.Name("group_footer"), group.Footer);
-         
+
             return this;
         }
 
@@ -78,11 +80,24 @@ namespace WebAddressbookTests
             //driver.FindElement(By.LinkText("Logout")).Click();
             return this;
         }
+
+        public void CheckAndCreate(int index)
+        {
+            if (! IsElementPresent(By.XPath("(//input[@name='selected[]'])[" + index + "]")))
+            {
+                GroupData group = new GroupData("qa");
+                group.Header = "qd";
+                group.Footer = "qf";
+                manager.Groups.Create(group);
+            }
+        }
+
+
         public GroupHelper SelectGroup(int index)
         {
-            //driver.FindElement(By.XPath("(.//*[normalize-space(text()) and normalize-space(.)='q'])[3]/input[1]")).Click();
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
-            return this;
+                //driver.FindElement(By.XPath("(.//*[normalize-space(text()) and normalize-space(.)='q'])[3]/input[1]")).Click();
+                driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+                return this;
         }
         public GroupHelper RemoveGroup()
         {

@@ -32,6 +32,7 @@ namespace WebAddressbookTests
 
         public ContactHelper Remove(int p)
         {
+            CheckAndCreate(1);
             SelectContact(1);
             manager.Alert.AcceptAlert();
 
@@ -43,6 +44,7 @@ namespace WebAddressbookTests
 
         public ContactHelper Modify(ContactData contactData)
         {
+            CheckAndCreate(1);
             ClickEdit();
             FillContactForm(contactData);
             Update();
@@ -133,7 +135,18 @@ namespace WebAddressbookTests
         {
             driver.FindElement(By.LinkText("Logout")).Click();
         }
-      
+
+         public void CheckAndCreate (int index)
+        {
+            if (! IsElementPresent(By.XPath("(//input[@name='selected[]'])[" + index + "]")))
+            {
+                ContactData contactData = new ContactData();
+                contactData.FirstName = "Ivan";
+                contactData.LastName = "Ivanov";
+                manager.Contact.Create(contactData);
+            }
+        }
+
         public void SelectContact(int index)
         {
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
