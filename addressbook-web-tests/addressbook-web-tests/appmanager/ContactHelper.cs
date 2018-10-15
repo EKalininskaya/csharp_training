@@ -32,7 +32,6 @@ namespace WebAddressbookTests
 
         public ContactHelper Remove(int p)
         {
-            CheckAndCreate(1);
             SelectContact(1);
             manager.Alert.AcceptAlert();
 
@@ -44,7 +43,6 @@ namespace WebAddressbookTests
 
         public ContactHelper Modify(ContactData contactData)
         {
-            CheckAndCreate(1);
             ClickEdit();
             FillContactForm(contactData);
             Update();

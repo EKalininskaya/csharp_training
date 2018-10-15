@@ -11,9 +11,10 @@ namespace WebAddressbookTests
         [Test]
         public void ContactModificationTest()
         {
+            app.Contact.CheckAndCreate(1);
             ContactData contactData = new ContactData();
-            contactData.FirstName = "Ivan";
-            contactData.LastName = "Ivanov";
+            contactData.FirstName = "Sergey";
+            contactData.LastName = "Petrov";
             contactData.Title = "Test";
             contactData.NickName = "Ivanko";
             app.Contact.Modify(contactData);
