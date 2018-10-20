@@ -19,10 +19,10 @@ namespace WebAddressbookTests
 
         public void GoToHomePage()
         {
-            if (driver.Url == "http://localhost/addressbook/")
+            /*if (driver.Url == "http://localhost/addressbook/")
             {
                 return;
-            }
+            }*/
             driver.Navigate().GoToUrl("http://localhost/addressbook/");
         }
 

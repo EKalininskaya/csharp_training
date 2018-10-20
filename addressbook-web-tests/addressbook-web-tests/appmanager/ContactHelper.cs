@@ -32,7 +32,7 @@ namespace WebAddressbookTests
 
         public ContactHelper Remove(int p)
         {
-            SelectContact(1);
+            SelectContact(0);
             manager.Alert.AcceptAlert();
 
             driver.FindElement(By.CssSelector("input[value=\"Delete\"]")).Click();
@@ -138,16 +138,30 @@ namespace WebAddressbookTests
         {
             if (! IsElementPresent(By.XPath("(//input[@name='selected[]'])[" + index + "]")))
             {
-                ContactData contactData = new ContactData();
-                contactData.FirstName = "Ivan";
-                contactData.LastName = "Ivanov";
+                ContactData contactData = new ContactData("Ivan", "Ivanov");
                 manager.Contact.Create(contactData);
             }
         }
 
         public void SelectContact(int index)
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index+1) + "]")).Click();
+        }
+
+        public List<ContactData> GetContactList()
+        {
+            List<ContactData> contacts = new List<ContactData>();
+            manager.Navigator.GoToHomePage();
+            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr[name=entry]"));
+            foreach (IWebElement element in elements)
+            {
+                var text = element.Text;
+                var firstname = text.Split(' ')[1];
+                var lastname = text.Split(' ')[0];
+
+                contacts.Add(new ContactData(firstname, lastname));
+            }
+            return contacts;
         }
     }
 }

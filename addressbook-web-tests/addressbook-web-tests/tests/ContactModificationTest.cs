@@ -2,6 +2,7 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
+using System.Collections.Generic;
 
 namespace WebAddressbookTests
 {
@@ -12,12 +13,24 @@ namespace WebAddressbookTests
         public void ContactModificationTest()
         {
             app.Contact.CheckAndCreate(1);
-            ContactData contactData = new ContactData();
-            contactData.FirstName = "Sergey";
-            contactData.LastName = "Petrov";
-            contactData.Title = "Test";
-            contactData.NickName = "Ivanko";
-            app.Contact.Modify(contactData);
+
+            List<ContactData> oldContacts = app.Contact.GetContactList();
+
+            ContactData newContactData = new ContactData("Sergey", "Petrov");
+            newContactData.Title = "Test";
+            newContactData.NickName = "Ivanko";
+
+            app.Contact.Modify(newContactData);
+            
+            List<ContactData> newContacts = app.Contact.GetContactList();
+
+            oldContacts[0].FirstName = newContactData.FirstName;
+            oldContacts[0].LastName = newContactData.LastName;
+            oldContacts.Sort();
+            newContacts.Sort();
+
+            Assert.AreEqual(oldContacts, newContacts);
+
         }
     }
 }
