@@ -13,8 +13,8 @@ namespace WebAddressbookTests
 {
     public class ContactHelper : HelperBase
     {
-      
-        
+
+
 
         public ContactHelper(ApplicationManager manager)
             : base(manager)
@@ -27,6 +27,7 @@ namespace WebAddressbookTests
             FillContactForm(contactData);
             ClickEnter();
             ReturnToHomePage();
+            contactCache = null;
             return this;
         }
 
@@ -37,6 +38,7 @@ namespace WebAddressbookTests
 
             driver.FindElement(By.CssSelector("input[value=\"Delete\"]")).Click();
             Assert.IsTrue(Regex.IsMatch(manager.Alert.CloseAlertAndGetItsText(), "^Delete 1 addresses[\\s\\S]$"));
+            contactCache = null;
 
             return this;
         }
@@ -47,6 +49,7 @@ namespace WebAddressbookTests
             FillContactForm(contactData);
             Update();
             ReturnToHomePage();
+            contactCache = null;
             return this;
         }
 
@@ -115,7 +118,7 @@ namespace WebAddressbookTests
         {
             driver.FindElement(By.CssSelector("input[type=\"submit\"]")).Click();
         }
-        
+
         private void ClickEdit()
         {
             driver.FindElement(By.XPath("//*[@id='maintable']/tbody/tr[2]/td[8]/a/img")).Click();
@@ -123,20 +126,21 @@ namespace WebAddressbookTests
         private void Update()
         {
             driver.FindElement(By.CssSelector("input[name=\"update\"][type=\"submit\"]")).Click();
+            contactCache = null;
         }
         public void GoToNewContact()
         {
             driver.FindElement(By.LinkText("add new")).Click();
         }
-        
+
         public void Logout()
         {
             driver.FindElement(By.LinkText("Logout")).Click();
         }
 
-         public void CheckAndCreate (int index)
+        public void CheckAndCreate(int index)
         {
-            if (! IsElementPresent(By.XPath("(//input[@name='selected[]'])[" + index + "]")))
+            if (!IsElementPresent(By.XPath("(//input[@name='selected[]'])[" + index + "]")))
             {
                 ContactData contactData = new ContactData("Ivan", "Ivanov");
                 manager.Contact.Create(contactData);
@@ -145,23 +149,27 @@ namespace WebAddressbookTests
 
         public void SelectContact(int index)
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index+1) + "]")).Click();
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index + 1) + "]")).Click();
         }
+        private List<ContactData> contactCache = null;
 
         public List<ContactData> GetContactList()
         {
-            List<ContactData> contacts = new List<ContactData>();
-            manager.Navigator.GoToHomePage();
-            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr[name=entry]"));
-            foreach (IWebElement element in elements)
+            if (contactCache == null)
             {
-                var text = element.Text;
-                var firstname = text.Split(' ')[1];
-                var lastname = text.Split(' ')[0];
+                contactCache = new List<ContactData>();
+                manager.Navigator.GoToHomePage();
+                ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr[name=entry]"));
+                foreach (IWebElement element in elements)
+                {
+                    var text = element.Text;
+                    var firstname = text.Split(' ')[1];
+                    var lastname = text.Split(' ')[0];
 
-                contacts.Add(new ContactData(firstname, lastname));
+                    contactCache.Add(new ContactData(firstname, lastname));
+                }
             }
-            return contacts;
+            return new List<ContactData>(contactCache);
         }
     }
 }
