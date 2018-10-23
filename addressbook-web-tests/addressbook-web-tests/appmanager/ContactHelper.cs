@@ -162,10 +162,10 @@ namespace WebAddressbookTests
                 ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr[name=entry]"));
                 foreach (IWebElement element in elements)
                 {
-                    var text = element.Text;
-                    var firstname = text.Split(' ')[1];
-                    var lastname = text.Split(' ')[0];
-
+                    var tds = element.FindElements(By.CssSelector("td"));
+                    var lastname = tds[1].Text;
+                    var firstname = tds[2].Text;
+                    
                     contactCache.Add(new ContactData(firstname, lastname));
                 }
             }
