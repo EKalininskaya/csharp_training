@@ -56,6 +56,8 @@ namespace WebAddressbookTests
             return string.Compare(FirstName, other.FirstName);
         }
 
+        public string DetailData { get; set; }
+
         public string FirstName { get; set; }
         
         public string LastName { get; set; }

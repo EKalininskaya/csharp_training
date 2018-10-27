@@ -133,6 +133,13 @@ namespace WebAddressbookTests
             
         }
 
+        private void GoToDetailForm(int index)
+        {
+            driver.FindElements(By.Name("entry"))[index]
+                 .FindElements(By.TagName("td"))[6]
+                 .FindElement(By.TagName("a")).Click();
+        }
+
         public int GetNumberOfSearchResults()
         {
             manager.Navigator.GoToHomePage();
@@ -224,10 +231,20 @@ namespace WebAddressbookTests
                 HomePhone = homePhone,
                 MobilePhone = mobilePhone,
                 WorkPhone = workPhone
-          
+
             };
         }
+        public ContactData GetContactInformationFromDetailForm(int index)
+        {
+            manager.Navigator.GoToHomePage();
+            GoToDetailForm(0);
+            string detailData = driver.FindElement(By.CssSelector("#content")).GetAttribute("value");
 
+            return new ContactData(firstName, lastName)
+            {
+                DetailData = detailData
+            };
+        }
     }
 }
 
