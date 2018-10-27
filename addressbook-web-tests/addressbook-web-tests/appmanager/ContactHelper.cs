@@ -238,9 +238,10 @@ namespace WebAddressbookTests
         {
             manager.Navigator.GoToHomePage();
             GoToDetailForm(0);
-            string detailData = driver.FindElement(By.CssSelector("#content")).GetAttribute("value");
+            //string detailData = driver.FindElement(By.Id("content")).GetAttribute("value");
+            string detailData = driver.FindElement(By.Id("content")).Text;
 
-            return new ContactData(firstName, lastName)
+            return new ContactData()
             {
                 DetailData = detailData
             };
