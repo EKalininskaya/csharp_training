@@ -9,6 +9,7 @@ using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
 using System.Text.RegularExpressions;
 
+
 namespace WebAddressbookTests
 {
     public class ContactHelper : HelperBase
@@ -119,10 +120,10 @@ namespace WebAddressbookTests
         {
             driver.FindElement(By.CssSelector("input[type=\"submit\"]")).Click();
         }
-        private void ClickEdit()
+        /*private void ClickEdit()
         {
             driver.FindElement(By.XPath("//*[@id='maintable']/tbody/tr[2]/td[8]/a/img")).Click();
-        }
+        }*/
 
         private void InitContactModification(int index)
         {
@@ -131,6 +132,16 @@ namespace WebAddressbookTests
                 .FindElement(By.TagName("a")).Click();
             
         }
+
+        public int GetNumberOfSearchResults()
+        {
+            manager.Navigator.GoToHomePage();
+            string text = driver.FindElement(By.TagName("label")).Text;
+            Match m = new Regex(@"\d+").Match(text);
+            return Int32.Parse(m.Value);
+        }
+
+
         private void Update()
         {
             driver.FindElement(By.CssSelector("input[name=\"update\"][type=\"submit\"]")).Click();
