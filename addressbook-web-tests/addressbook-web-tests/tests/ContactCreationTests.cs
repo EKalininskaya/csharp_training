@@ -14,7 +14,7 @@ namespace WebAddressbookTests
 
     public class ContactCteationTests : AuthTestBase
     {
-        public static IEnumerable<ContactData> RandomGroupDataProvider()
+        public static IEnumerable<ContactData> RandomContactDataProvider()
         {
             List<ContactData> contacts = new List<ContactData>();
             for (int i = 0; i < 5; i++)
@@ -22,17 +22,17 @@ namespace WebAddressbookTests
                 contacts.Add(new ContactData()
                 {
                     FirstName = GenerateRandomString(30),
-                    LastName = GenerateRandomString(100)
+                    LastName = GenerateRandomString(30)
                 });
             }
 
             return contacts;
         }
-    }
 
-    
-        [Test, TestCaseSource("RandomGroupDataProvider")]
-        public void ContactCreationTest(ContactData)
+
+
+        [Test, TestCaseSource("RandomContactDataProvider")]
+        public void ContactCreationTest(ContactData contactData)
         {
 
             List<ContactData> oldContacts = app.Contact.GetContactList();
@@ -49,24 +49,24 @@ namespace WebAddressbookTests
 
         }
 
-        /*[Test]
-        public void ContactCreationTest()
-        {           
-           
-            ContactData contactData = new ContactData("Ivan", "Ivanov");
+        /* [Test]
+         public void ContactCreationTest()
+         {           
 
-            List<ContactData> oldContacts = app.Contact.GetContactList();
+             ContactData contactData = new ContactData("Ivan", "Ivanov");
 
-            app.Contact.Create(contactData);
+             List<ContactData> oldContacts = app.Contact.GetContactList();
 
-            List<ContactData> newContacts = app.Contact.GetContactList();
-          
-            oldContacts.Add(contactData);
-            oldContacts.Sort();
-            newContacts.Sort();
+             app.Contact.Create(contactData);
 
-            Assert.AreEqual(oldContacts, newContacts);
-            
-        }*/
-    
+             List<ContactData> newContacts = app.Contact.GetContactList();
+
+             oldContacts.Add(contactData);
+             oldContacts.Sort();
+             newContacts.Sort();
+
+             Assert.AreEqual(oldContacts, newContacts);
+
+         }*/
+    }
 }
