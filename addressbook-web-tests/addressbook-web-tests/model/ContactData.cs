@@ -112,7 +112,47 @@ namespace WebAddressbookTests
                 else
                 {
                     var rn = "\r\n";
-                    return $"{FirstName} {LastName}{rn}{Address}{rn}{rn}H: {HomePhone}{rn}M: {MobilePhone}{rn}W: {WorkPhone}".Trim();
+                    var result = string.Empty;
+
+                    if (!string.IsNullOrEmpty(FirstName))
+                    {
+                        result += FirstName;
+                    }
+
+                    if (!string.IsNullOrEmpty(LastName))
+                    {
+                        result += " " + LastName;
+                    }
+
+                    result += rn;
+
+                    if (!string.IsNullOrEmpty(Address))
+                    {
+                        result += Address;
+                    }
+
+                    result += rn+rn;
+
+                    if (!string.IsNullOrEmpty(HomePhone))
+                    {
+                        result += "H:" + HomePhone;
+                    }
+
+                    result += rn;
+                    if (!string.IsNullOrEmpty(MobilePhone))
+                    {
+                        result += "M:" + MobilePhone;
+                    }
+                    result += rn;
+
+                    if (!string.IsNullOrEmpty(WorkPhone))
+                    {
+                        result += "W:" + WorkPhone;
+                    }
+
+                    return result.Trim();
+
+                    //return $"{FirstName} {LastName}{rn}{Address}{rn}{rn}H: {HomePhone}{rn}M: {MobilePhone}{rn}W: {WorkPhone}".Trim();
                    
                     /*return (FirstName +" " + LastName +"\r\n"+ Address
                     +"\r\n\r\n" + "H: " + HomePhone + "\r\n" + "M: " + MobilePhone + "\r\n" + "W: " + WorkPhone).Trim();*/
