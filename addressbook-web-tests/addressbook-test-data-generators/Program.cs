@@ -16,16 +16,36 @@ namespace addressbook_test_data_generators
     {
         static void Main(string[] args)
         {
-            int  count = Convert.ToInt32(args[0]);
-            string filename = args[1];
-            string format = args[2];
+            string input = args[0];
+            int count = Convert.ToInt32(args[1]);
+            string filename = args[2];
+            string format = args[3];
 
+
+            if (input == "groups")
+            {
+                ProceedGroups(count, filename, format);
+            }
+            else if (input == "contacts")
+
+            {
+                ProceedContacts(count, filename, format);
+            }
+
+            else
+            {
+                System.Console.Out.Write("Unknown input: " + input);
+            }
+        }
+
+        static void ProceedGroups(int count, string filename, string format)
+        {
             List<GroupData> groups = new List<GroupData>();
             for (int i = 0; i < count; i++)
             {
                 groups.Add(new GroupData(TestBase.GenerateRandomString(10))
                 {
-                    Header= TestBase.GenerateRandomString(100),
+                    Header = TestBase.GenerateRandomString(100),
                     Footer = TestBase.GenerateRandomString(100)
                 });
             }
@@ -55,7 +75,35 @@ namespace addressbook_test_data_generators
 
                 writer.Close();
             }
-            
+        }
+
+        static void ProceedContacts(int count, string filename, string format)
+        {
+            List<ContactData> contacts = new List<ContactData>();
+            for (int i = 0; i < count; i++)
+            {
+                contacts.Add(new ContactData()
+                {
+                    FirstName = TestBase.GenerateRandomString(30),
+                    LastName = TestBase.GenerateRandomString(30)
+                });
+            }
+
+            StreamWriter writer = new StreamWriter(filename);
+            if (format == "xml")
+            {
+                writeContactsToXmlFile(contacts, writer);
+            }
+            else if (format == "json")
+            {
+                writeContactsToJsonFile(contacts, writer);
+            }
+            else
+            {
+                System.Console.Out.Write("Unrecognizef format" + format);
+            }
+
+            writer.Close();
         }
 
         static void writeGroupsToExcelFile(List<GroupData> groups, string filename)
@@ -101,5 +149,17 @@ namespace addressbook_test_data_generators
         {
             writer.Write(JsonConvert.SerializeObject(groups, Newtonsoft.Json.Formatting.Indented));
         }
+
+
+        static void writeContactsToJsonFile(List<ContactData> contacts, StreamWriter writer)
+        {
+            writer.Write(JsonConvert.SerializeObject(contacts, Newtonsoft.Json.Formatting.Indented));
+        }
+
+        static void writeContactsToXmlFile(List<ContactData> contacts, StreamWriter writer)
+        {
+            new XmlSerializer(typeof(List<ContactData>)).Serialize(writer, contacts);
+        }
+
     }
 }
