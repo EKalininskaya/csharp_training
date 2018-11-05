@@ -6,6 +6,9 @@ using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
+using System.IO;
+using Newtonsoft.Json;
+using System.Xml.Serialization;
 using System.Collections.Generic;
 
 namespace WebAddressbookTests
@@ -29,9 +32,24 @@ namespace WebAddressbookTests
             return contacts;
         }
 
+       
+        public static IEnumerable<ContactData> ContactDataFromXmlFile()
+        {
+            List<ContactData> groups = new List<ContactData>();
+            return (List<ContactData>)
+                new XmlSerializer(typeof(List<ContactData>))
+                .Deserialize(new StreamReader(@"contacts.xml"));
 
+        }
+        public static IEnumerable<ContactData> ContactDataFromJsonFile()
+        {
+            return JsonConvert.DeserializeObject<List<ContactData>>(
+                File.ReadAllText(@"contacts.json"));
+        }
 
-        [Test, TestCaseSource("RandomContactDataProvider")]
+       
+
+        [Test, TestCaseSource("ContactDataFromJsonFile")]
         public void ContactCreationTest(ContactData contactData)
         {
 
