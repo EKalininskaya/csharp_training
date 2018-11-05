@@ -88,10 +88,6 @@ namespace WebAddressbookTests
         [Test, TestCaseSource("GroupDataFromExcelFile")]
         public void GroupCreationTest(GroupData  group)
         {
-            /*GroupData group = new GroupData("qa");
-            group.Header = "qd";
-            group.Footer = "qf";*/
-
             List<GroupData> oldGroups = app.Groups.GetGroupList();
 
             app.Groups.Create(group);
