@@ -88,10 +88,12 @@
     <Compile Include="model\GroupContactRelation.cs" />
     <Compile Include="model\GroupData.cs" />
     <Compile Include="appmanager\GroupHelper.cs" />
+    <Compile Include="tests\AddingContactToGroupTests.cs" />
     <Compile Include="tests\AuthTestBase.cs" />
     <Compile Include="tests\ContactInformationTest.cs" />
     <Compile Include="tests\ContactModificationTest.cs" />
     <Compile Include="tests\ContactRemovalTests.cs" />
+    <Compile Include="tests\ContactTestBase.cs" />
     <Compile Include="tests\GroupModificationTests.cs" />
     <Compile Include="tests\GroupRemovalTests.cs" />
     <Compile Include="appmanager\HelperBase.cs" />
@@ -99,6 +101,7 @@
     <Compile Include="appmanager\NavigationHelper.cs" />
     <Compile Include="tests\GroupTastBase.cs" />
     <Compile Include="tests\LoginTest.cs" />
+    <Compile Include="tests\RemovingContactFromGroup.cs" />
     <Compile Include="tests\SearchTest.cs" />
     <Compile Include="tests\TestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
