@@ -62,6 +62,9 @@ namespace WebAddressbookTests
 
             return string.Compare(FirstName, other.FirstName);
         }
+        [Column(Name = "id"), PrimaryKey]
+
+        public string Id { get; set; }
 
         [Column(Name = "firstname")]
 
