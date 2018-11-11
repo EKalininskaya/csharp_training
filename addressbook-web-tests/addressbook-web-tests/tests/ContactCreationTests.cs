@@ -16,7 +16,7 @@ namespace WebAddressbookTests
 {
     [TestFixture]
 
-    public class ContactCteationTests : AuthTestBase
+    public class ContactCteationTests : ContactTastBase
     {
         public static IEnumerable<ContactData> RandomContactDataProvider()
         {
@@ -54,11 +54,11 @@ namespace WebAddressbookTests
         public void ContactCreationTest(ContactData contactData)
         {
 
-            List<ContactData> oldContacts = app.Contact.GetContactList();
+            List<ContactData> oldContacts = ContactData.GetAll();
 
             app.Contact.Create(contactData);
 
-            List<ContactData> newContacts = app.Contact.GetContactList();
+            List<ContactData> newContacts = ContactData.GetAll();
 
             oldContacts.Add(contactData);
             oldContacts.Sort();

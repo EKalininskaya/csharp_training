@@ -46,6 +46,21 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public ContactHelper Remove(ContactData tobeRemoved)
+        {
+            manager.Navigator.GoToHomePage();
+            CleanGroupFilter();
+            SelectContacts(tobeRemoved.Id);
+            manager.Alert.AcceptAlert();
+
+            driver.FindElement(By.CssSelector("input[value=\"Delete\"]")).Click();
+            Assert.IsTrue(Regex.IsMatch(manager.Alert.CloseAlertAndGetItsText(), "^Delete 1 addresses[\\s\\S]$"));
+            contactCache = null;
+
+            return this;
+
+        }
+
         public ContactHelper Modify(ContactData contactData)
         {
             //ClickEdit();
@@ -175,10 +190,17 @@ namespace WebAddressbookTests
             }
         }
 
+        public void SelectContacts(string Id)
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]'and @value ='"+ Id +"'])")).Click();
+        }
+        
+
         public void SelectContact(int index)
         {
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index + 1) + "]")).Click();
         }
+
         private List<ContactData> contactCache = null;
 
         public List<ContactData> GetContactList()

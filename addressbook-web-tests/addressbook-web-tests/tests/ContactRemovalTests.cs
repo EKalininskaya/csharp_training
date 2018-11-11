@@ -12,25 +12,30 @@ using System.Collections.Generic;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class ContactRemovalTests : AuthTestBase
+    public class ContactRemovalTests : ContactTastBase
     {
         [Test]
         public void ContactRemovalTest()
         {
             app.Contact.CheckAndCreate(1);
 
-            List<ContactData> oldContacts = app.Contact.GetContactList();
+            List<ContactData> oldContacts = ContactData.GetAll();
+            ContactData toBeRemoved = oldContacts[0];
 
+            app.Contact.Remove(toBeRemoved);
 
-            app.Contact.Remove(0);
             app.Navigator.GoToHomePage();
 
-            List<ContactData> newContacts = app.Contact.GetContactList();
+            List<ContactData> newContacts = ContactData.GetAll();
 
             oldContacts.RemoveAt(0);
-           
             
             Assert.AreEqual(oldContacts, newContacts);
+
+            foreach (ContactData contact in newContacts)
+            {
+                Assert.AreNotEqual(contact.Id, toBeRemoved.Id);
+            }
         }
     }
 }

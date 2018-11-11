@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 
-/*namespace WebAddressbookTests
+namespace WebAddressbookTests
 {
     public class ContactTastBase : AuthTestBase
     {
@@ -24,4 +24,4 @@ using NUnit.Framework;
         }
 
     }
-}*/
+}
