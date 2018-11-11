@@ -11,24 +11,24 @@ namespace WebAddressbookTests
 
     {
         [Test]
-
         public void GroupModificationTest()
         {
             app.Groups.CheckAndCreate(1);
                         
-            GroupData newData = new GroupData("zzz");
+            GroupData newData = new GroupData("vvv");
             newData.Header = null;
             newData.Footer = null;
 
-            List<GroupData> oldGroups = GroupData.GetAll();
+            List<GroupData> oldGroups = GroupData.GetAll().OrderBy(x => x.Name).ToList();
             GroupData oldData = oldGroups[0];
+            oldData.Name = newData.Name;
 
             app.Groups.Modify(0, newData);
 
             Assert.AreEqual(oldGroups.Count, app.Groups.GetGroupCount());
 
-            List<GroupData> newGroups = GroupData.GetAll();
-            oldGroups[0].Name = newData.Name;
+            List<GroupData> newGroups = GroupData.GetAll().OrderBy(x => x.Name).ToList();
+
             oldGroups.Sort();
             newGroups.Sort();
 
