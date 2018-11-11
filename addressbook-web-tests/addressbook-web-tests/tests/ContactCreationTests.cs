@@ -10,6 +10,7 @@ using System.IO;
 using Newtonsoft.Json;
 using System.Xml.Serialization;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace WebAddressbookTests
 {
