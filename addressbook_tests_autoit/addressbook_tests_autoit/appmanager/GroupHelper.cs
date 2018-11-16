@@ -9,11 +9,45 @@ namespace addressbook_tests_autoit
     {
 
         public static string GROUPWINTITLE = "Group editor";
+        public static string source = "WindowsForms10.SysTreeView32.app.0.2c908d51";
 
         public GroupHelper(ApplicationManager manager) : base(manager)
         {
 
         }
+
+        public void CheckAndCreate(int v)
+        {
+            aux.WinWaitActive(WINTITLE);
+
+            OpenGroupsDialog();
+
+            // проверить количество групп string count = aux.ControlTreeView(GROUPWINTITLE, "", source, "GetItemCount", "#0", "");
+            /* усли 0, то создать новый  for (int i = 0; i < int.Parse(count); i++)
+            {
+                string item = aux.ControlTreeView(GROUPWINTITLE, "", source, "GetText", "#0|#" + i, "");
+                list.Add(new GroupData()
+                {
+                    Name = item
+                });
+
+            }*/
+            CloseGroupsDilog();
+        }
+
+        public void Remove(GroupData toBeRemoved)
+        {
+            aux.WinWaitActive(WINTITLE);
+
+            OpenGroupsDialog();
+            // выбрать группу для удаления
+            aux.ControlClick(GROUPWINTITLE, " ", "WindowsForms10.BUTTON.app.0.2c908d51");
+            aux.ControlClick(GROUPWINTITLE, " ", "WindowsForms10.BUTTON.app.0.2c908d51");//нажать delete
+            aux.ControlClick("Delete group", " ", "WindowsForms10.BUTTON.app.0.2c908d53");
+            
+            CloseGroupsDilog();
+        }
+
 
         public void Add(GroupData newGroup)
         {
@@ -26,6 +60,7 @@ namespace addressbook_tests_autoit
             CloseGroupsDilog();
         }
 
+      
         private void CloseGroupsDilog()
         {
             aux.ControlClick(GROUPWINTITLE, " ", "WindowsForms10.BUTTON.app.0.2c908d54");
@@ -39,7 +74,7 @@ namespace addressbook_tests_autoit
 
         public List<GroupData> GetGroupList()
         {
-            var source = "WindowsForms10.SysTreeView32.app.0.2c908d51";
+           
             List<GroupData> list = new List<GroupData>();
             OpenGroupsDialog();
 
