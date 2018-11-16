@@ -39,14 +39,14 @@ namespace addressbook_tests_autoit
 
         public List<GroupData> GetGroupList()
         {
+            var source = "WindowsForms10.SysTreeView32.app.0.2c908d51";
             List<GroupData> list = new List<GroupData>();
             OpenGroupsDialog();
-            string count = aux.ControlTreeView(GROUPWINTITLE,"", "WindowsForms10.SysTreeView32.app.0.2c908d5",
-                "GetItemCount", "#0", "");
+
+            string count = aux.ControlTreeView(GROUPWINTITLE, "", source, "GetItemCount", "#0", "");
             for (int i = 0; i < int.Parse(count); i++)
             {
-               string item = aux.ControlTreeView(GROUPWINTITLE, "", "WindowsForms10.SysTreeView32.app.0.2c908d5",
-                "GetText", "#0|#"+i, "");
+               string item = aux.ControlTreeView(GROUPWINTITLE, "", source, "GetText", "#0|#"+i, "");
                 list.Add(new GroupData()
                 {
                     Name = item
