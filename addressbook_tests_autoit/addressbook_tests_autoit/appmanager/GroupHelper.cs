@@ -9,6 +9,7 @@ namespace addressbook_tests_autoit
     {
 
         public static string GROUPWINTITLE = "Group editor";
+        public static string DELETEGROUP = "Delete group";
         public static string source = "WindowsForms10.SysTreeView32.app.0.2c908d51";
 
         public GroupHelper(ApplicationManager manager) : base(manager)
@@ -21,18 +22,23 @@ namespace addressbook_tests_autoit
             aux.WinWaitActive(WINTITLE);
 
             OpenGroupsDialog();
-
-            // проверить количество групп string count = aux.ControlTreeView(GROUPWINTITLE, "", source, "GetItemCount", "#0", "");
-            /* усли 0, то создать новый  for (int i = 0; i < int.Parse(count); i++)
+            int numOfGroup = GetNumOfGroups();
+            if (numOfGroup == 0)
             {
-                string item = aux.ControlTreeView(GROUPWINTITLE, "", source, "GetText", "#0|#" + i, "");
-                list.Add(new GroupData()
+                var newGroup = new GroupData
                 {
-                    Name = item
-                });
-
-            }*/
+                    Name = "New group"
+                };
+                Add(newGroup);
+            }
             CloseGroupsDilog();
+        }
+
+        private int GetNumOfGroups()
+        {
+            string count = aux.ControlTreeView(GROUPWINTITLE, "", source, "GetItemCount", "#0", "");
+            int numOfGroup = int.Parse(count);
+            return numOfGroup;
         }
 
         public void Remove(GroupData toBeRemoved)
@@ -40,11 +46,10 @@ namespace addressbook_tests_autoit
             aux.WinWaitActive(WINTITLE);
 
             OpenGroupsDialog();
-            // выбрать группу для удаления
+            aux.ControlTreeView(GROUPWINTITLE, " ", source, "Select", "#0|#1", "");
             aux.ControlClick(GROUPWINTITLE, " ", "WindowsForms10.BUTTON.app.0.2c908d51");
-            aux.ControlClick(GROUPWINTITLE, " ", "WindowsForms10.BUTTON.app.0.2c908d51");//нажать delete
-            aux.ControlClick("Delete group", " ", "WindowsForms10.BUTTON.app.0.2c908d53");
-            
+            aux.WinWait(DELETEGROUP);
+            aux.ControlClick(DELETEGROUP, " ", "WindowsForms10.BUTTON.app.0.2c908d53");
             CloseGroupsDilog();
         }
 
@@ -77,9 +82,8 @@ namespace addressbook_tests_autoit
            
             List<GroupData> list = new List<GroupData>();
             OpenGroupsDialog();
-
-            string count = aux.ControlTreeView(GROUPWINTITLE, "", source, "GetItemCount", "#0", "");
-            for (int i = 0; i < int.Parse(count); i++)
+            int numOfGroup = GetNumOfGroups();
+            for (int i = 0; i < numOfGroup; i++)
             {
                string item = aux.ControlTreeView(GROUPWINTITLE, "", source, "GetText", "#0|#"+i, "");
                 list.Add(new GroupData()
