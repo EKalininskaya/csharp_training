@@ -17,6 +17,9 @@ namespace mantis_tests
 
         public RegistrationHelper Registration { get; }
         public FtpHelper Ftp { get; set; }
+        public LoginHelper Login { get; set; }
+        public ManagementMenuHelper ManagementMenu { get; set; }
+        public ProjectManagementHelper ProjectManagement { get; set; }
 
         private static ThreadLocal<ApplicationManager> app = new ThreadLocal<ApplicationManager>();
 
@@ -26,7 +29,9 @@ namespace mantis_tests
             baseURL = "https://www.katalon.com/";
             Registration = new RegistrationHelper(this);
             Ftp = new FtpHelper(this);
-
+            Login = new LoginHelper(this);
+            ManagementMenu = new ManagementMenuHelper(this);
+            ProjectManagement = new ProjectManagementHelper(this);
         }
 
          ~ApplicationManager()
