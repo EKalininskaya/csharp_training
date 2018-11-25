@@ -58,7 +58,6 @@
     <Compile Include="appmanager\ApplicationManager.cs" />
     <Compile Include="appmanager\FtpHelper.cs" />
     <Compile Include="appmanager\HelperBase.cs" />
-    <Compile Include="appmanager\AllTest.cs" />
     <Compile Include="appmanager\ProjectManagementHelper.cs" />
     <Compile Include="appmanager\ManagementMenuHelper.cs" />
     <Compile Include="appmanager\LoginHelper.cs" />

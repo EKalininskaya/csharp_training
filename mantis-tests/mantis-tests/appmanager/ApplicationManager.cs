@@ -20,6 +20,7 @@ namespace mantis_tests
         public LoginHelper Login { get; set; }
         public ManagementMenuHelper ManagementMenu { get; set; }
         public ProjectManagementHelper ProjectManagement { get; set; }
+        
 
         private static ThreadLocal<ApplicationManager> app = new ThreadLocal<ApplicationManager>();
 
@@ -32,6 +33,8 @@ namespace mantis_tests
             Login = new LoginHelper(this);
             ManagementMenu = new ManagementMenuHelper(this);
             ProjectManagement = new ProjectManagementHelper(this);
+            
+
         }
 
          ~ApplicationManager()

@@ -17,24 +17,74 @@ namespace mantis_tests
         {
         }
 
-        public void CreateProject()
+        public void GoToProjects()
+        {
+            manager.ManagementMenu.GoToManage();
+            manager.ManagementMenu.GoToManageProjects();
+        }
+
+        public List<ProjectData> GetOrCreateProjects()
+        {
+            GoToProjects();
+            var projects = GetProjects();
+
+            if (projects.Count == 0)
+            {
+                var projectName = "New project";
+                CreateProject(projectName);
+                projects.Add(new ProjectData { Name = projectName });
+            }
+
+            return projects;
+        }
+
+        public void ProjectRemoval()
+        {
+            GoToProjects();
+
+            var projects = GetProjects();
+            var projectName = projects[0].Name;
+
+            manager.ProjectManagement.RemoveProject(projectName);
+        }
+
+        public void ProjectCreation()
+        {
+            GoToProjects();
+
+            var projectName = string.Format("New Project {0}", DateTime.Now.Ticks);
+            manager.ProjectManagement.CreateProject(projectName);
+        }
+
+        public List<ProjectData> GetProjects()
+        {
+            GoToProjects();
+            var list = new List<ProjectData>();
+            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("table[class=width100] tr[class=row-1], table[class=width100] tr[class=row-2]"));
+            foreach (IWebElement element in elements)
+            {
+                var tds = element.FindElements(By.CssSelector("td"));
+                var name = tds[0].Text;
+                list.Add(new ProjectData { Name = name });
+            }
+
+            return list;
+        }
+
+        private void CreateProject(string projectName)
         {
             driver.FindElement(By.XPath("(.//*[normalize-space(text()) and normalize-space(.)='Manage Configuration'])[1]/following::input[2]")).Click();
-            Type(By.Name("name"), "Newone");
-            /*driver.FindElement(By.Name("name")).Click();
-            driver.FindElement(By.Name("name")).Clear();
-            driver.FindElement(By.Name("name")).SendKeys("First");*/
+            Type(By.Name("name"), projectName);
             driver.FindElement(By.XPath("(.//*[normalize-space(text()) and normalize-space(.)='Description'])[1]/following::input[1]")).Click();
         }
 
-       
-        public void RemoveProject()
+
+        private void RemoveProject(string projectName)
         {
-            //click on project
-            driver.FindElement(By.LinkText("FirstProject")).Click();
+            driver.FindElement(By.LinkText(projectName)).Click();  //click on project
             driver.FindElement(By.XPath("(.//*[normalize-space(text()) and normalize-space(.)='Description'])[1]/following::input[4]")).Click();
             driver.FindElement(By.XPath("(.//*[normalize-space(text()) and normalize-space(.)='Logout'])[1]/following::input[6]")).Click();
-        
-    }
+
+        }
     }
 }

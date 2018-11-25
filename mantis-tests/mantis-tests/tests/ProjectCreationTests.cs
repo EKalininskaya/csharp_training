@@ -16,13 +16,12 @@ namespace mantis_tests
         public void TestProjectCreation()
         {
             app.Login.Login(new AccountData("administrator", "root"));
-
-            app.ManagementMenu.GoToManage();
-            app.ManagementMenu.GoToManageProjects();
-
-            app.ProjectManagement.CreateProject();
-
+            var oldProjects = app.ProjectManagement.GetProjects();
+            app.ProjectManagement.ProjectCreation();
+            var newProjects = app.ProjectManagement.GetProjects();
             app.ManagementMenu.Logout();
+
+            Assert.AreEqual(oldProjects.Count + 1, newProjects.Count);
         }
 
         [TestFixtureTearDown]
